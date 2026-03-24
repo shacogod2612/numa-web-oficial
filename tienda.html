@@ -31,7 +31,7 @@
             <span class="cart-count">(0)</span>
         </div>
     </header>
-    
+
     <div id="overlay" class="overlay"></div>
 
     <main class="container">
@@ -314,9 +314,67 @@
         </div>
     </main>
 
+    <section class="contacto-section">
+        <div class="redes-sociales">
+            <h3>SÍGUENOS EN NUESTRAS REDES</h3>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/numaurban?igsh=azd2bmtiMHYwZzdn" target="_blank" class="icon-ig">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="https://www.tiktok.com/@numaurban" target="_blank" class="icon-tk">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <span>TikTok</span>
+                </a>
+                <a href="https://wa.me/51900006426" target="_blank" class="icon-ws">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="direccion-block">
+            <i class="fa-solid fa-location-dot"></i>
+            <h4>VISÍTANOS</h4>
+            <p>Agustín Gamarra 449, La Victoria, Gl. Generación Gamarra</p>
+            <p class="horario">Lunes a Sábado: 10:30 AM - 7:30 PM <br> Domigo: 10:30 Am - 5:30 P PM</p>
+        </div>
+    </section>
+
     <footer>
         <p>&copy; 2024 GLONIS CLONE - Inspirado en el diseño streetwear.</p>
     </footer>
+
+    <!-- Estructura del Modal de Producto -->
+<div id="product-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-body">
+            <!-- Lado Izquierdo: Imagen -->
+            <div class="product-view-img">
+                <img id="modal-img" src="" alt="Producto Numa">
+            </div>
+            <!-- Lado Derecho: Info -->
+            <div class="product-view-info">
+                <h2 id="modal-title">Nombre de la Prenda</h2>
+                <p class="modal-price" id="modal-price">S/ 00.00</p>
+                
+                <div class="size-selector">
+                    <span>Tallas disponibles:</span>
+                    <div class="sizes">
+                        <button>S</button>
+                        <button>M</button>
+                        <button>L</button>
+                        <button>XL</button>
+                    </div>
+                </div>
+
+                <button class="btn-buy-now">COMPRAR AHORA</button>
+                <p class="modal-desc">Algodón pesado 20/1, estampado en alta densidad. Calce Oversize.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script src="js/script.js"></script>
 </body>

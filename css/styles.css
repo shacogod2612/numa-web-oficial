@@ -104,6 +104,20 @@ body {
     cursor: pointer;
 }
 
+.cart-count {
+    font-weight: 700;
+    transition: transform 0.2s ease;
+    display: inline-block;
+    color: #000;
+}
+
+/* Estilo para que el botón se vea clickeable */
+.btn-add {
+    cursor: pointer;
+    position: relative;
+    z-index: 10; /* Para que esté sobre la card */
+}
+
 /* =========================================
    3. HERO Y CONTENIDO PRINCIPAL
    ========================================= */
@@ -139,6 +153,9 @@ body {
 .hero-content h1 {
     font-size: 50px;
     margin-bottom: 20px;
+}
+.hero-content p {
+    margin-bottom: 10px;
 }
 
 .hero-content p {
@@ -296,9 +313,157 @@ footer {
     transition: transform 0.3s ease;
 }
 
+/* =========================================
+   7. SECCIÓN CONTACTO Y REDES
+   ========================================= */
+.contacto-section {
+    padding: 60px 5%;
+    background-color: #E0E0E0; /* Mismo fondo para limpieza */
+    text-align: center;
+    border-top: 1px solid #ccc;
+}
+
+.redes-sociales h3 {
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.social-icons i {
+    font-size: 35px;
+}
+
+.social-icons span {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Efectos Hover */
+.icon-ig:hover { color: #E1306C; transform: translateY(-5px); }
+.icon-ws:hover { color: #25D366; transform: translateY(-5px); }
+
+/* Bloque Dirección */
+.direccion-block {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.direccion-block i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.direccion-block h4 {
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.direccion-block p {
+    font-size: 14px;
+    color: #333;
+}
+
+.direccion-block .horario {
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+}
+
+.icon-tk:hover { 
+    color: #ff0050; /* El color representativo de TikTok */
+    transform: translateY(-5px); 
+}
+
+/* Ajuste Móvil */
+@media (max-width: 600px) {
+    .social-icons {
+        gap: 60px;
+    }
+    
+    .contacto-section {
+        padding: 40px 5%;
+    }
+}
+
+/* VENTANA MODAL */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 2000;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #E0E0E0;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.modal-body {
+    display: flex;
+    gap: 30px;
+}
+
+.product-view-img { width: 50%; }
+.product-view-img img { width: 100%; border-radius: 5px; }
+
+.product-view-info { width: 50%; display: flex; flex-direction: column; justify-content: center; }
+
+.modal-price { font-weight: 700; font-size: 24px; margin: 10px 0; }
+
+.size-selector { margin: 20px 0; }
+.sizes { display: flex; gap: 10px; margin-top: 10px; }
+.sizes button {
+    padding: 8px 15px;
+    border: 1px solid #000;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.sizes button:hover { background: #000; color: #fff; }
+
+.btn-buy-now {
+    background: #000; color: #fff;
+    padding: 15px; border: none;
+    font-weight: 700; cursor: pointer;
+    margin-top: 20px;
+}
+
 
 /* =========================================
-   7. RESPONSIVE DESIGN (MÓVIL)
+   8. RESPONSIVE DESIGN (MÓVIL)
    ========================================= */
 @media (max-width: 600px) {
     
@@ -391,4 +556,9 @@ footer {
         object-fit: cover;
         border-radius: 8px;
     }
+    .social-icons {
+        gap: 30px; 
+    }
+    .modal-body { flex-direction: column; }
+    .product-view-img, .product-view-info { width: 100%; }
 }
