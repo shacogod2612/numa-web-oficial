@@ -1,17 +1,28 @@
-/* Reseteo básico */
+/* =========================================
+   1. RESETEO Y BASES
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background-color:#E0E0E0;
-    color: #000;
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; 
+    position: relative;
 }
 
-/* Navegación */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #E0E0E0;
+    color: #000;
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+/* =========================================
+   2. NAVEGACIÓN (DESKTOP POR DEFECTO)
+   ========================================= */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -28,76 +39,102 @@ body {
     font-weight: 700;
     font-size: 32px;
     letter-spacing: 2px;
-    line-height: 12px;
+    line-height: 1.2;
 }
 
 .logo span {
     font-size: 10px;
     letter-spacing: 2px;
     color: #706d6d;
-    
+    display: block;
 }
 
-.navbar ul {
+/* Menú de links */
+.nav-menu ul {
     display: flex;
     list-style: none;
 }
 
-.navbar ul li {
+.nav-menu ul li {
     margin: 0 15px;
 }
 
-.navbar ul li a {
+.nav-menu ul li a {
     text-decoration: none;
     color: #000000;
     font-size: 18px;
     font-weight: 400;
-    
-}
-.navbar ul li a:hover {
-    color: #535151
+    transition: 0.3s;
 }
 
-/* iconos de carritos */
+.nav-menu ul li a:hover {
+    color: #535151;
+}
+
+/* Iconos (Carrito/Buscador) */
 .nav-icons {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 18px;
 }
 
 .nav-icons i {
-  cursor: pointer;
-  transition: 0.3s;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .nav-icons i:hover {
-  color: #555;
-  transform: scale(1.1);
+    color: #555;
+    transform: scale(1.1);
 }
 
 .cart-count {
-  font-size: 14px;
+    font-size: 14px;
 }
 
-/* Banner Hero */
+/* Botón Hamburguesa (Oculto en PC) */
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* =========================================
+   3. HERO Y CONTENIDO PRINCIPAL
+   ========================================= */
 .hero {
-    height: 80vh;
-    background: #f4f4f4 url('../img/hero.png') no-repeat center center/cover;
+    position: relative;
+    height: 75vh;
+    background-image: url('../img/hero2.jpg');
+    background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
 }
 
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); 
+}
+
 .hero-content {
-    padding-top: 370px;
+    position: relative; 
+    z-index: 1;
+    color: #fff; 
 }
 
 .hero-content h1 {
     font-size: 50px;
     margin-bottom: 20px;
-    color: #000;
+    color: #ffffff;
 }
 
 .btn-shop {
@@ -114,7 +151,9 @@ body {
     background: #333;
 }
 
-/* Grilla de productos */
+/* =========================================
+   4. PRODUCTOS Y GRID
+   ========================================= */
 .container {
     padding: 50px 5%;
 }
@@ -162,7 +201,6 @@ body {
     font-size: 10px;
 }
 
-/* Info de producto */
 .product-info {
     padding: 15px 0;
 }
@@ -193,27 +231,32 @@ body {
     color: #fff;
 }
 
-/* poses */
+/* =========================================
+   5. SECCIÓN DE IMÁGENES (POSES)
+   ========================================= */
 .seccion-img {
-  padding: 60px 0;
-  background-color: #F5F5F5;
+    padding: 60px 0;
+    background-color: #F5F5F5;
 }
 
 .contenedor-img {
-  display: flex;
-  gap: 20px;
-  max-width: 1200px;
-  margin: auto;
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 5%;
 }
 
 .contenedor-img img {
-  width: 33.33%;
-  height: 600px;
-  object-fit: cover;
-  border-radius: 12px;
+    width: 33.33%;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 12px;
 }
 
-
+/* =========================================
+   6. FOOTER
+   ========================================= */
 footer {
     text-align: center;
     padding: 40px;
@@ -222,99 +265,80 @@ footer {
     margin-top: 50px;
 }
 
-/* Tablet */
-@media (max-width: 900px) {
-     .navbar {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .navbar ul {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .hero {
-    height: 60vh;
-  }
-
-  .hero-content {
-    padding-top: 200px;
-  }
-
-  .hero-content h1 {
-    font-size: 35px;
-  }
-
-   .contenedor-img {
-    flex-wrap: wrap;
-  }
-
-  .contenedor-img img {
-    width: 48%;
-    height: 400px;
-  }
-}
-
- 
-
-
-/* Celular */
+/* =========================================
+   7. RESPONSIVE DESIGN (MÓVIL)
+   ========================================= */
 @media (max-width: 600px) {
-  
-   .navbar {
-    padding: 15px;
-  }
+    
+    /* Navbar Estilo Hamburguesa-Logo-Iconos */
+    .navbar {
+        height: 70px;
+        padding: 10px 5%;
+    }
 
-  .logo {
-    font-size: 24px;
-  }
+    .menu-toggle {
+        display: block; /* Muestra el icono */
+        order: 1;
+        width: 20%;
+        text-align: left;
+    }
 
-  .navbar ul {
-    flex-direction: column;
-    gap: 10px;
-  }
+    .logo {
+        order: 2;
+        width: 60%;
+        text-align: center;
+        font-size: 20px;
+    }
 
-  .navbar ul li {
-    margin: 5px 0;
-  }
+    .nav-icons {
+        order: 3;
+        width: 20%;
+        justify-content: flex-end;
+    }
 
-  /* HERO */
-  .hero {
-    height: 50vh;
-  }
+    /* Menú desplegable oculto */
+    .nav-menu {
+        display: none; 
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #E0E0E0;
+        z-index: 1000;
+        padding: 20px 0;
+        border-bottom: 1px solid #ccc;
+    }
 
-  .hero-content {
-    padding-top: 120px;
-  }
+    /* Cuando el JS añade la clase .active */
+    .nav-menu.active {
+        display: block;
+    }
 
-  .hero-content h1 {
-    font-size: 28px;
-  }
+    .nav-menu ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
 
-  .btn-shop {
-    padding: 10px 20px;
-    font-size: 12px;
-  }
+    /* Hero y Contenido */
+    .hero {
+        height: 50vh;
+    }
 
-  /* PRODUCTOS */
-  .product-grid {
-    grid-template-columns: 1fr;
-  }
+    .hero-content {
+        padding-top: 120px;
+    }
 
-  /* IMÁGENES */
-    .contenedor-img {
-    flex-wrap: wrap;
-  }
+    .hero-content h1 {
+        font-size: 28px;
+    }
 
-  .contenedor-img img {
-    width: 48%;
-    height: 400px;
-  }
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
 
-  /* FOOTER */
-  footer {
-    padding: 20px;
-  }
-  
+    .contenedor-img img {
+        width: 48%; /* Dos por fila en móviles grandes */
+        height: 350px;
+    }
 }
