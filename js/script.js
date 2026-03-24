@@ -58,83 +58,127 @@ window.onclick = (event) => {
     if (event.target == modal) modal.style.display = "none";
 }
 
-// carrito de compra //
 document.addEventListener('DOMContentLoaded', () => {
-    // --- VARIABLES DEL CARRITO ---
-    let carrito = [];
-    const cartCountElement = document.querySelector('.cart-count');
+    // --- 1. VARIABLES GLOBALES ---
+    let carrito = JSON.parse(localStorage.getItem('carritoNuma')) || [];
+    let tallaSeleccionada = ""; // Para rastrear la talla en el modal
 
-    // --- VARIABLES DEL MODAL ---
+    const sideCart = document.getElementById('side-cart');
+    const overlay = document.getElementById('overlay');
     const modal = document.getElementById("product-modal");
-    const closeModal = document.querySelector(".close-modal");
+    const botonesTalla = document.querySelectorAll('.size-btn');
 
-    // --- 1. FUNCIÓN PARA ACTUALIZAR EL CONTADOR DEL NAVBAR ---
-    function actualizarContador() {
-        const totalItems = carrito.length;
-        cartCountElement.innerText = `(${totalItems})`;
+    // --- 2. FUNCIÓN RENDER CARRITO (Dibuja la lista y guarda en LocalStorage) ---
+    function renderCarrito() {
+        const container = document.getElementById('cart-items-container');
+        const totalElem = document.getElementById('cart-total');
+        const countElem = document.querySelector('.cart-count');
         
-        // Efecto visual de rebote al añadir
-        cartCountElement.style.transform = "scale(1.2)";
-        setTimeout(() => cartCountElement.style.transform = "scale(1)", 200);
+        container.innerHTML = '';
+        let total = 0;
+
+        if (carrito.length === 0) {
+            container.innerHTML = '<p class="empty-msg">Tu carrito está vacío.</p>';
+            totalElem.innerText = "S/ 0.00";
+        } else {
+            carrito.forEach((prod, index) => {
+                const precio = parseFloat(prod.precio.replace('S/. ', '').replace(',', ''));
+                total += precio;
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${prod.img}">
+                        <div class="cart-item-info">
+                            <h4>${prod.titulo}</h4>
+                            <p>${prod.precio}</p>
+                        </div>
+                        <span class="remove-item" data-index="${index}">&times;</span>
+                    </div>`;
+            });
+        }
+        totalElem.innerText = `S/ ${total.toFixed(2)}`;
+        countElem.innerText = `(${carrito.length})`;
+        localStorage.setItem('carritoNuma', JSON.stringify(carrito));
+
+        // Botones eliminar del carrito
+        document.querySelectorAll('.remove-item').forEach(btn => {
+            btn.onclick = (e) => {
+                carrito.splice(e.target.dataset.index, 1);
+                renderCarrito();
+            };
+        });
     }
 
-    // --- 2. LÓGICA DE LAS TARJETAS DE PRODUCTO ---
-    const productCards = document.querySelectorAll('.product-card');
-
-    productCards.forEach(card => {
-        // Seleccionamos el botón de añadir de cada tarjeta
-        const btnAdd = card.querySelector('.btn-add');
-        
-        // A. CLIC EN EL BOTÓN "AÑADIR" (Directo al carrito)
-        btnAdd.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita que se abra el modal al dar clic al botón
+    // --- 3. LÓGICA DE SELECCIÓN DE TALLAS (NUEVO) ---
+    botonesTalla.forEach(boton => {
+        boton.onclick = function() {
+            // Quitar clase activa a todos y ponerla al actual
+            botonesTalla.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
             
-            const producto = {
+            // Guardar la talla elegida
+            tallaSeleccionada = this.innerText;
+            
+            // Actualizar link de WhatsApp del modal
+            actualizarLinkWhatsAppModal();
+        };
+    });
+
+    function actualizarLinkWhatsAppModal() {
+        const titulo = document.getElementById('modal-title').innerText;
+        const precio = document.getElementById('modal-price').innerText;
+        const btnWA = document.getElementById('modal-wa-btn');
+        const textoTalla = tallaSeleccionada ? ` en Talla: ${tallaSeleccionada}` : "";
+        
+        const mensaje = `Hola Numa! Me interesa: ${titulo}${textoTalla} (${precio})`;
+        btnWA.href = `https://wa.me/51900006426?text=${encodeURIComponent(mensaje)}`;
+    }
+
+    // --- 4. EVENTOS DE PRODUCTOS (Cards) ---
+    document.querySelectorAll('.product-card').forEach(card => {
+        // Clic en el botón Añadir
+        card.querySelector('.btn-add').onclick = (e) => {
+            e.stopPropagation();
+            carrito.push({
                 titulo: card.querySelector('h3').innerText,
                 precio: card.querySelector('.price').innerText,
                 img: card.querySelector('img').src
-            };
+            });
+            renderCarrito();
+            sideCart.classList.add('active');
+            overlay.classList.add('active');
+        };
 
-            carrito.push(producto);
-            actualizarContador();
+        // Clic en la Card (Abrir Modal)
+        card.onclick = () => {
+            // Reset de tallas al abrir
+            tallaSeleccionada = "";
+            botonesTalla.forEach(btn => btn.classList.remove('active'));
             
-            // Feedback visual en el botón
-            const originalText = btnAdd.innerText;
-            btnAdd.innerText = "¡AÑADIDO!";
-            btnAdd.style.background = "#25D366";
-            btnAdd.style.color = "#fff";
+            document.getElementById('modal-title').innerText = card.querySelector('h3').innerText;
+            document.getElementById('modal-price').innerText = card.querySelector('.price').innerText;
+            document.getElementById('modal-img').src = card.querySelector('img').src;
             
-            setTimeout(() => {
-                btnAdd.innerText = originalText;
-                btnAdd.style.background = "transparent";
-                btnAdd.style.color = "#000";
-            }, 800);
-        });
-
-        // B. CLIC EN LA TARJETA (Abre el Modal)
-        card.addEventListener('click', () => {
-            const title = card.querySelector('h3').innerText;
-            const price = card.querySelector('.price').innerText;
-            const img = card.querySelector('img').src;
-
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-price').innerText = price;
-            document.getElementById('modal-img').src = img;
-
-            // Configurar WhatsApp del Modal
-            const waNumber = "51900006426";
-            const waMessage = `Hola Numa! Me interesa: ${title} (${price})`;
-            document.getElementById('modal-wa-btn').href = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
-
+            actualizarLinkWhatsAppModal(); // Genera link inicial sin talla
             modal.style.display = "flex";
-        });
+        };
     });
 
-    // --- 3. CERRAR MODAL ---
-    if(closeModal) {
-        closeModal.onclick = () => modal.style.display = "none";
-    }
-    window.onclick = (event) => {
-        if (event.target == modal) modal.style.display = "none";
+    // --- 5. BOTÓN WHATSAPP DEL CARRITO (SIDE CART) ---
+    document.getElementById('checkout-btn').onclick = () => {
+        if (carrito.length === 0) return alert("Carrito vacío");
+        let msg = "Hola Numa! Mi pedido:%0A";
+        carrito.forEach(p => msg += `- ${p.titulo} (${p.precio})%0A`);
+        msg += `%0A*TOTAL: ${document.getElementById('cart-total').innerText}*`;
+        window.open(`https://wa.me/51900006426?text=${msg}`, '_blank');
     };
+
+    // --- 6. CERRAR TODO ---
+    document.querySelector('.close-modal').onclick = () => modal.style.display = "none";
+    document.querySelector('.close-cart').onclick = () => {
+        sideCart.classList.remove('active');
+        overlay.classList.remove('active');
+    };
+    
+    // Al cargar la página, dibujar lo que haya guardado
+    renderCarrito();
 });

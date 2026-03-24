@@ -251,6 +251,11 @@
             <p class="horario">Lunes a Sábado: 10:30 AM - 7:30 PM <br> Domigo: 10:30 Am - 5:30 P PM</p>
         </div>
     </section>
+
+    <footer>
+        <p>&copy; 2024 GLONIS CLONE - Inspirado en el diseño streetwear.</p>
+    </footer>
+
             <!-- Estructura del Modal de Producto -->
     <div id="product-modal" class="modal">
         <div class="modal-content">
@@ -268,23 +273,44 @@
                     <div class="size-selector">
                         <span>Tallas disponibles:</span>
                         <div class="sizes">
-                            <button>S</button>
-                            <button>M</button>
-                            <button>L</button>
-                            <button>XL</button>
+                            <button class="size-btn">S</button>
+                            <button class="size-btn">M</button>
+                            <button class="size-btn">L</button>
+                            <button class="size-btn">XL</button>
                         </div>
                     </div>
 
-                    <button class="btn-buy-now">COMPRAR AHORA</button>
+                    <a href="#" id="modal-wa-btn" target="_blank" class="btn-wa-modal">
+                        <i class="fa-brands fa-whatsapp"></i> PEDIR POR WHATSAPP
+                    </a>
                     <p class="modal-desc">Algodón pesado 20/1, estampado en alta densidad. Calce Oversize.</p>
                 </div>
             </div>
         </div>
     </div>
+    
+ 
+        <!-- Carrito Lateral -->
+    <div id="side-cart" class="side-cart">
+        <div class="cart-header">
+            <h3>TU PEDIDO</h3>
+            <span class="close-cart">&times;</span>
+        </div>
+        
+        <div id="cart-items-container" class="cart-items">
+            <!-- Aquí se cargarán los productos con JS -->
+            <p class="empty-msg">Tu carrito está vacío.</p>
+        </div>
 
-    <footer>
-        <p>&copy; 2024 GLONIS CLONE - Inspirado en el diseño streetwear.</p>
-    </footer>
+        <div class="cart-footer">
+            <div class="total-block">
+                <span>TOTAL:</span>
+                <span id="cart-total">S/ 0.00</span>
+            </div>
+            <button id="checkout-btn" class="btn-checkout">PEDIR POR WHATSAPP</button>
+        </div>
+    </div>
+
     <script src="js/script.js"></script>
 </body>
 </html>
